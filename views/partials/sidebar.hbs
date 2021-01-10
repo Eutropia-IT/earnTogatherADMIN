@@ -1,0 +1,91 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3"> Admin </div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Application
+      </div>
+
+      <!-- Nav Item - Request Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-scroll"></i>
+          <span>Request</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Apply for Id Activation:</h6>
+            <a class="collapse-item" href="/newIdRequest">New ID Activation Request</a>
+            <a class="collapse-item" href="/upgradePackgRequest">Upgrade Package Request</a>
+            <a class="collapse-item" href="/withdrawRequest">Withdraw Request </a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - See All Request Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="/allRequest">
+          <i class="fas fa-address-book"></i>
+          <span>See All Request</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Activities
+      </div>
+
+      <!-- Nav Item - Open  Account Form Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+          aria-controls="collapsePages">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Forms</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">User all Statement:</h6>
+            <a class="collapse-item" href="/createAdmin">Open Admin Account</a>
+            {{!-- <a class="collapse-item" href="/createCustomer">Open Cutomer Account</a> --}}
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Customer Action -->
+      <li class="nav-item">
+        <a class="nav-link" href="/allUsers">
+          <i class="fas fa-fire-extinguisher"></i>
+          <span>Customer Action</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    </ul>

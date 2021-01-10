@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{title}} ID#{{user_id}}</title>
+
+    {{!-- official bs --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link href="assets/datatables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+
+    <div id="wrapper">
+        <!-- START Sidebar  -->
+        {{> sidebar}}
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+                <!--  Top Nav bar  -->
+                {{> topNavbar}}
+
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">User Profile ID#<strong>{{user_id}}</strong></h1>
+                        <a class="badge bg-danger text-light fs-6" data-bs-toggle="modal"
+                            data-bs-target="#removeUsrPermanent">Remove Account Permanently</a>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Presonal Inromation</h6>
+                        </div>
+                        <div class="card-body ">
+
+                            <div class="row text-center">
+
+                                <div class="col-lg col-md">
+                                    <div class="col mb-2">
+                                        <div class="text-xs font-weight-bold  text-uppercase text-gray-800 mb-1">User ID
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold  text-center  m-auto">
+                                            <strong>{{user_id}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg col-md">
+                                    <div class="col mb-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Active
+                                            Group</div>
+                                        <div class="h5 mb-0 font-weight-bold  text-center circle-group m-auto">
+                                            {{#if group_type}}
+                                            {{group_type}}
+                                            {{else}}
+                                            ||
+                                            {{/if}}
+                                        </div>
+                                        <div class="col-lg col-md">
+                                            <i class="fas fa-cog text-gray-500" data-bs-toggle="modal"
+                                                data-bs-target="#nameModal">
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg col-md">
+                                    {{#equal account_status 'pending' }}
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Account
+                                            Status</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Pending
+                                            <i class="fas fa-pause-circle fa-1x text-warning"></i>
+                                        </div>
+                                    </div>
+                                    {{/equal}}
+                                    {{#equal account_status 'active'}}
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Account
+                                            Status</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Active
+                                            <i class="fas fa-clipboard-check fa-1x text-success"></i>
+                                        </div>
+                                    </div>
+                                    {{/equal}}
+                                    {{#equal account_status 'block'}}
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Account
+                                            Status</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Block
+                                            <i class="fas fa-ban fa-1x text-danger"></i>
+                                        </div>
+                                    </div>
+                                    {{/equal}}
+                                    <div class="col-lg col-md">
+                                        <i class="fas fa-cog text-gray-500" data-bs-toggle="modal"
+                                            data-bs-target="#changeAccStatus">
+                                        </i>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row text-center">
+                                <div class="col-lg col-md">
+                                    Package Used <strong>{{packageUsed}} days.</strong>
+                                    <p class="text-info">Since, {{dateFormat activationDate "LLL"}} </p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg col-md">
+                                    Name
+                                </div>
+                                <div class="col-lg-10 col-md-10">
+                                    <strong>{{firstName}} {{lastName}}</strong>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg col-md">
+                                    Email
+                                </div>
+                                <div class="col-lg-10 col-md-10">
+                                    <strong>{{email}}</strong>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg col-md">
+                                    Phone Number
+                                </div>
+                                <div class="col-lg-10 col-md-10">
+                                    <strong>{{phone}}</strong>
+                                </div>
+                            </div>
+                            <hr>
+                            <!--
+                            <div class="row">
+                                <div class="col-lg col-md">
+                                    package used
+                                </div>
+                            </div>
+                        -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- second part(STATEMRT) --}}
+            <div class="container">
+
+                <!-- Page Heading -->
+                <hr>
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h4 class="h3 mb-0 text-gray-800">Statement</h4>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-bottom-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        <span class="badge badge-pill badge-primary"
+                                            style="font-size: 0.7rem;">Available Balance</span>
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800 ">
+                                        ৳ {{balance}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-wallet fa-2x text-primary-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    {{!-- Income Statement --}}
+                    <div class="col-lg-6">
+                        <h4>Income Statement </h4>
+                        <!-- Collapsable Card Referal Income...-->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Accordion -->
+                            <a href="#incomeStat" class="d-block card-header py-3" data-toggle="collapse" role="button"
+                                aria-expanded="true" aria-controls="incomeStat">
+                                <h6 class="m-0 font-weight-bold text-success">Your All Income Records</h6>
+                            </a>
+                            <!-- Card Content - Collapse -->
+                            <div class="collapse show" id="incomeStat">
+                                <div class="card-body">
+                                    {{!-- <div class="col-xl-4 col-md-7 mb-4"> --}}
+                                        <div class="card border-left-success shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                            Total Earning Balance</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            ৳{{totalEarnBal}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{!--
+                                    </div> --}}
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="incomeStat">
+                                <div class="card-body">
+
+                                    <div class="accordion" id="incomeInfoTable">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="one">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne1" aria-expanded="true"
+                                                    aria-controls="collapseOne1">
+                                                    Activation Money Back Income
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne1" class="accordion-collapse collapse show"
+                                                aria-labelledby="one" data-bs-parent="#incomeInfoTable">
+                                                <div class="accordion-body badge badge-success text-wrap p-2 m-2">
+                                                    You have received total: <span style="font-size: 1rem;">৳
+                                                        {{atcIncome}}</span>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    {{!-- Table --}}
+                                                    <div class="container table-responsive">
+                                                        <table class="table table-bordered table table-sm"
+                                                            id="dataTable" width="100%" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>User Id</th>
+                                                                    <th>Activation Money Back Earn</th>
+                                                                    <th>Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each activationMonBack}}
+                                                                <tr>
+                                                                    <td>{{this.user_id}}</td>
+                                                                    <td>{{this.active_mony_back}}</td>
+                                                                    <td><small>{{dateFormat this.time "LLL"}}</small>
+                                                                    </td>
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {{!-- Table end --}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{!-- 2 dropdown--}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="two">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree2"
+                                                    aria-expanded="false" aria-controls="collapseThree2">
+                                                    Video Watching Income
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree2" class="accordion-collapse collapse"
+                                                aria-labelledby="two" data-bs-parent="#incomeInfoTable">
+                                                <div class="accordion-body badge badge-success text-wrap p-2 m-2">
+                                                    You have received total: <span style="font-size: 1rem;">৳
+                                                        {{vdIncome}}</span>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    {{!-- Table --}}
+                                                    <div class="container table-responsive">
+                                                        <table class="table table-bordered table table-sm"
+                                                            id="dataTable2" width="100%" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>User Id</th>
+                                                                    <th>Video Watching Earn Amount</th>
+                                                                    <th>Time</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                {{#each videoEarning}}
+                                                                <tr>
+                                                                    <td>{{this.user_id}}</td>
+                                                                    <td>{{this.video_earning}}</td>
+                                                                    <td><small>{{dateFormat this.time "LLL"}}</small>
+                                                                    </td>
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                    {{!-- Table end --}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{!-- 3 dropdown --}}
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="three">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseThree3"
+                                                    aria-expanded="false" aria-controls="collapseThree3">
+                                                    Referral Income
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree3" class="accordion-collapse collapse"
+                                                aria-labelledby="three" data-bs-parent="#incomeInfoTable">
+                                                <div class="accordion-body badge badge-success text-wrap p-2 m-2">
+                                                    You have received total: <span style="font-size: 1rem;">৳
+                                                        {{refIncome}}</span>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    {{!-- Table --}}
+                                                    <div class="container table-responsive">
+                                                        <table class="table table-bordered table table-sm"
+                                                            id="dataTable3" width="100%" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>User Id</th>
+                                                                    <th>Referral Earn Amount</th>
+                                                                    <th>Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{#each refEarning}}
+                                                                <tr>
+                                                                    <td>{{this.user_id}}</td>
+                                                                    <td>{{this.ref_earning}}</td>
+                                                                    <td><small>{{dateFormat this.time "LLL"}}</small>
+                                                                    </td>
+                                                                </tr>
+                                                                {{/each}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {{!-- Table end --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{!--Withdraw Statement... --}}
+                    <div class="col-lg-6">
+                        <h4>Withdraw Statement </h4>
+                        <!-- Collapsable Card Referal Income...-->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Accordion -->
+                            <a href="#withdrawStat" class="d-block card-header py-3" data-toggle="collapse"
+                                role="button" aria-expanded="true" aria-controls="withdrawStat">
+                                <h6 class="m-0 font-weight-bold text-danger">Your All Withdraw Records</h6>
+                            </a>
+                            <!-- Card Content - Collapse -->
+                            <div class="collapse show" id="withdrawStat">
+                                <div class="card-body">
+                                    {{!-- <div class="col-xl-4 col-md-7 mb-4"> --}}
+                                        <div class="card border-left-danger shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div
+                                                            class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                            Total Withdraw Balance</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">৳ {{wBal}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{!--
+                                    </div> --}}
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="withdrawStat">
+                                <div class="card-body">
+                                    <div class="accordion-body">
+                                        {{!-- Table --}}
+                                        <div class="container table-responsive">
+                                            <table class="table table-bordered table table-sm" id="dataTable4"
+                                                width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User Id</th>
+                                                        <th>Withdraw Amount</th>
+                                                        <th>Time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each withdrawBal}}
+                                                    <tr>
+                                                        <td>{{this.user_Id}}</td>
+                                                        <td>{{this.amount}}</td>
+                                                        <td><small>{{dateFormat this.solve_date "LLL"}}</small></td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {{!-- Table end --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- third part (REF's LISt) -->
+
+            <!-- Table -->
+            <div class="container table-responsive">
+                <hr>
+                <h5 class="h3 mb-0 text-gray-800">Refer's List</h6> <br>
+                    <table class="table table-bordered table table-sm" id="dataTable5" width="100%" cellspacing="0">
+                        <caption>List of Refer's</caption>
+                        <thead>
+                            <tr>
+                                <th>Refer's UID</th>
+                                <th>Refer's Group</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each refListData}}
+                            <tr>
+                                <td>{{this.ref_candidates_Id}}</td>
+                                <td>{{this.ref_person_group}}</td>
+                                <td>{{this.withdraw_ticket}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+            </div>
+            <!-- Table end -->
+
+
+            <!-- CHANGE ACCIUNT STATUS Modal  -->
+            <div class="modal fade" id="changeAccStatus" tabindex="-1" aria-labelledby="changeAccStatusLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="changeAccStatusLabel">Change Acciunt Status</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/{{user_id}}" method="POST">  
+                            <div class="modal-body">
+                                <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="accountStatus" required>
+                                    <option value="">Select Account Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="active">Active</option>
+                                    <option value="block">Block</option>
+                                </select>
+                                <small class="text-danger">*Remember you just force this user account status. This type of action didn’t keep any balance transaction records.</small>
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger text-light">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--REMOVE USER PERMAMENTLY Modal-->
+            <div class="modal fade" id="removeUsrPermanent" tabindex="-1" aria-labelledby="removeUsrPermanentLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeUsrPermanentLabel">Remove Account Permanently</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-danger">Are you sure remove ID#{{user_id}}</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <a href="/removeUser/{{user_id}}" class="btn btn-danger">Sure</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Footer -->
+            {{> footer}}
+            <!-- End of Footer -->
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{!-- official bs bundel --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="assets/jquery.datatables.min.js"></script>
+
+    <script src="assets/datatables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('#dataTable2').DataTable();
+        });
+        $(document).ready(function () {
+            $('#dataTable3').DataTable();
+        });
+        $(document).ready(function () {
+            $('#dataTable4').DataTable();
+        });
+        $(document).ready(function () {
+            $('#dataTable5').DataTable();
+        });
+    </script>
+
+</body>
+
+</html>
