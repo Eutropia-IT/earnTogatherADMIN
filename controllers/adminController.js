@@ -230,7 +230,7 @@ exports.newIdRequestPostController = (req, res) => {
             let qry = 'INSERT INTO user_income (user_id, active_mony_back, ref_earning, ref_person_group, ref_candidates_Id) VALUES ?';
             let values = [
                 [userId * 1, activationMonyBack(package_group), 0, '', 0],
-                [refId * 1, 0, referralIncome(refIdGrp), package_group, userId * 1]
+                [refId * 1, 0, referralIncome(package_group), package_group, userId * 1]
             ];
             pool.query(qry, [values], (error, result) => {
                 if (error) {

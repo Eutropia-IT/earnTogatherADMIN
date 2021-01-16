@@ -63,7 +63,7 @@
                                     <th>Last Name</th>
                                     <th>Phone Number</th>
                                     <th>Account Status</th>
-                                    <th>Package Used</th>
+                                    <th>Current Package Income</th>
                                     <th>Profile</th>
                                 </tr>
                                 {{#each userTableData}}
@@ -73,7 +73,7 @@
                                     <td>{{this.lastName}}</td>
                                     <td>{{this.phone}}</td>
                                     <td>{{this.account_status}}</td>
-                                    <td> {{this.package_used}} days</td>
+                                    <td> {{this.cur_packg_inc}}</td>
                                     <td>
                                         {{#equal this.account_status 'active'}}
                                         <a class="badge bg-primary text-wrap fs-1 text text-gray-100"
@@ -85,8 +85,13 @@
                                             href="/{{this.user_id}}">visit profile
                                         </a>
                                         {{/equal}}
-                                         {{#equal this.account_status 'block'}}
+                                        {{#equal this.account_status 'block'}}
                                         <a class="badge bg-danger text-wrap fs-1 text text-gray-100"
+                                            href="/{{this.user_id}}">visit profile
+                                        </a>
+                                        {{/equal}}
+                                        {{#equal this.account_status 'renew needed'}}
+                                        <a class="badge bg-info text-wrap fs-1 text text-gray-100"
                                             href="/{{this.user_id}}">visit profile
                                         </a>
                                         {{/equal}}

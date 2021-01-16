@@ -79,7 +79,14 @@ exports.withdrawBalanceQry = (data, callBack) => {
 };
 //  find users table form DB
 exports.getUsersTable = (callBack) => {
-    pool.query('SELECT *,DATEDIFF(CURRENT_TIMESTAMP(), `activation_date`) package_used FROM `users`', [], (error, result) => {
+    pool.query(
+        `SELECT * ,DATEDIFF(CURRENT_TIMESTAMP(), activation_date) package_used,
+        (SELECT SUM(user_income.active_mony_back)+SUM(user_income.video_earning)+SUM(user_income.ref_earning)
+                FROM user_income
+                WHERE user_Id = users.user_id AND (time>= users.activation_date AND time <= CURRENT_TIMESTAMP)
+        ) AS cur_packg_inc
+        FROM users`, 
+        [], (error, result) => {
         if (error) return callBack(error);
         return callBack(null, result);
     });

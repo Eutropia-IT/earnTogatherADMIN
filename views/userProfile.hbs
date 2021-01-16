@@ -71,8 +71,9 @@
 
                                 <div class="col-lg col-md">
                                     <div class="col mb-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Active
-                                            Group</div>
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            {{#equal account_status 'renew needed'}} Previous {{/equal}} Active Group
+                                        </div>
                                         <div class="h5 mb-0 font-weight-bold  text-center circle-group m-auto">
                                             {{#if group_type}}
                                             {{group_type}}
@@ -104,6 +105,15 @@
                                             Status</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">Active
                                             <i class="fas fa-clipboard-check fa-1x text-success"></i>
+                                        </div>
+                                    </div>
+                                    {{/equal}}
+                                    {{#equal account_status 'renew needed' }}
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Account
+                                            Status</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Renew Needed
+                                            <i class="fas fa-pause-circle fa-1x text-warning"></i>
                                         </div>
                                     </div>
                                     {{/equal}}
@@ -491,17 +501,19 @@
                             <h5 class="modal-title" id="changeAccStatusLabel">Change Acciunt Status</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="/{{user_id}}" method="POST">  
+                        <form action="/{{user_id}}" method="POST">
                             <div class="modal-body">
-                                <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" name="accountStatus" required>
+                                <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example"
+                                    name="accountStatus" required>
                                     <option value="">Select Account Status</option>
                                     <option value="pending">Pending</option>
                                     <option value="active">Active</option>
                                     <option value="block">Block</option>
                                 </select>
-                                <small class="text-danger">*Remember you just force this user account status. This type of action didn’t keep any balance transaction records.</small>
+                                <small class="text-danger">*Remember you just force this user account status. This type
+                                    of action didn’t keep any balance transaction records.</small>
                             </div>
-                            
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-danger text-light">Confirm</button>
